@@ -13,6 +13,12 @@
             <groupId>raf.fs</groupId>
             <artifactId>filestorage-implementation-remote</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>raf.fs</groupId>
+            <artifactId>filestorage-specification</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
