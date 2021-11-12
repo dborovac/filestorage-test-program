@@ -15,6 +15,8 @@ public class UserInput {
         System.out.println("4. Dodaj korisnika.");
         System.out.println("5. Prikaz fajlova.");
         System.out.println("6. Kreiranje direktorijuma i fajlova.");
+        System.out.println("7. Brisanje direktorijuma i fajlova.");
+        System.out.println("8. Preuzimanje fajla.");
         System.out.println("0. Izlaz.");
         return Integer.parseInt(input.nextLine());
     }

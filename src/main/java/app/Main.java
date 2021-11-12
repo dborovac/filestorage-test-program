@@ -1,5 +1,6 @@
 package app;
 
+import exceptions.FileStorageException;
 import fs.FileStorage;
 import fs.MyFile;
 import input.UserInput;
@@ -25,39 +26,49 @@ public class Main {
         int selection;
         do {
             selection = UserInput.mainMenu();
-            if (selection == 1) {
-                String storageName = UserInput.inputStorageName();
-                fs.init(storageName, UserInput.inputUsernameAndPassword());
-                System.out.println("Trenutno skladiste: '" + storageName + "'");
-            }
-            if (selection == 2) {
-                String storageName = UserInput.inputStorageName();
-                fs.login(storageName, UserInput.inputUsernameAndPassword());
-                System.out.println("Trenutno skladiste: '" + storageName + "'");
-            }
-            if (selection == 3) {
-                fs.logout();
-                System.out.println("Uspesno ste se izlogovali.");
-            }
-            if (selection == 4) {
-                fs.addUser(UserInput.inputUsernameAndPassword(), UserInput.inputPrivileges());
-                System.out.println("Uspesno ste dodali novog korisnika.");
-            }
-            if (selection == 5) {
-                int ls;
-                do {
-                    ls = UserInput.lsMenu();
-                    if (ls == 1) print_ls(fs.ls());
-                    if (ls == 2) print_ls(fs.lsFiles());
-                    if (ls == 3) print_ls(fs.lsDirectories());
-                    if (ls == 4) print_ls(fs.lsByType(UserInput.inputFileType()));
-                    if (ls == 5) print_ls(fs.lsSortedByName(UserInput.inputSortOrder()));
-                    if (ls == 6) print_ls(fs.lsSortedByDate(UserInput.inputSortOrder()));
-                    if (ls == 7) print_ls(fs.lsSortedByLastModified(UserInput.inputSortOrder()));
-                } while (ls != 0);
-            }
-            if (selection == 6) {
-                fs.makeFiles(UserInput.inputPattern(), UserInput.inputPath());
+            try {
+                if (selection == 1) {
+                    String storageName = UserInput.inputStorageName();
+                    fs.init(storageName, UserInput.inputUsernameAndPassword());
+                    System.out.println("Trenutno skladiste: '" + storageName + "'");
+                }
+                if (selection == 2) {
+                    String storageName = UserInput.inputStorageName();
+                    fs.login(storageName, UserInput.inputUsernameAndPassword());
+                    System.out.println("Trenutno skladiste: '" + storageName + "'");
+                }
+                if (selection == 3) {
+                    fs.logout();
+                    System.out.println("Uspesno ste se izlogovali.");
+                }
+                if (selection == 4) {
+                    fs.addUser(UserInput.inputUsernameAndPassword(), UserInput.inputPrivileges());
+                    System.out.println("Uspesno ste dodali novog korisnika.");
+                }
+                if (selection == 5) {
+                    int ls;
+                    do {
+                        ls = UserInput.lsMenu();
+                        if (ls == 1) print_ls(fs.ls());
+                        if (ls == 2) print_ls(fs.lsFiles());
+                        if (ls == 3) print_ls(fs.lsDirectories());
+                        if (ls == 4) print_ls(fs.lsByType(UserInput.inputFileType()));
+                        if (ls == 5) print_ls(fs.lsSortedByName(UserInput.inputSortOrder()));
+                        if (ls == 6) print_ls(fs.lsSortedByDate(UserInput.inputSortOrder()));
+                        if (ls == 7) print_ls(fs.lsSortedByLastModified(UserInput.inputSortOrder()));
+                    } while (ls != 0);
+                }
+                if (selection == 6) {
+                    fs.makeFiles(UserInput.inputPattern(), UserInput.inputPath());
+                }
+                if (selection == 7) {
+                    fs.deleteFile(UserInput.inputPath());
+                }
+                if (selection == 8) {
+                    fs.downloadFile(UserInput.inputPath());
+                }
+            } catch (FileStorageException exception) {
+                System.out.println(exception.getMessage());
             }
         } while (selection != 0);
     }
